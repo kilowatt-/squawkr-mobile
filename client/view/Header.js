@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet,Text} from 'react-native';
+import {View, StyleSheet,Text,Image} from 'react-native';
 import PropTypes from 'prop-types';
 
 class Header extends React.Component {
@@ -8,8 +8,10 @@ class Header extends React.Component {
     }
 
     render() {
+        console.log('title: ' + this.props.title);
         return (<View style={style.title}>
-                <Text style={style.titleText}>{this.props.title}</Text>
+            {!this.props.title ? <Image source={require('./img/logo.png')} style={style.logo} resizeMethod="scale" resizeMode="contain"/> :
+                <Text style={style.titleText}>{this.props.title}</Text>}
             </View>
         );
     }
@@ -23,11 +25,19 @@ const style = StyleSheet.create({
         elevation: 3,
         // background color must be set
         backgroundColor : '#fff',
-        height: 50,
+        flex: 0.10,
         justifyContent: 'center',
     },
     titleText: {
-        paddingLeft: 5
+        paddingLeft: 10,
+        fontSize: 20,
+        fontFamily: 'Roboto',
+        fontWeight: 'bold',
+    },
+    logo: {
+        height: '60%',
+        position: 'absolute',
+        left: -20,
     },
 });
 
