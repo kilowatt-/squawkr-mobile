@@ -9,12 +9,16 @@
 import React from 'react';
 import Home from './client/view/home/Home';
 import {createStore} from 'redux';
-import reducers from "./client/controller/reducers";
+import {Provider} from 'react-redux';
+import reducers from './client/controller/reducers';
 
-const store = createStore(reducers)
+const store = createStore(reducers);
 const App = () => {
-  return <Home />;
-}
-
+  return (
+    <Provider store={store}>
+      <Home />
+    </Provider>
+  );
+};
 
 export default App;

@@ -8,10 +8,10 @@ class Header extends React.Component {
     }
 
     render() {
-        console.log('title: ' + this.props.title);
         return (<View style={style.title}>
             {!this.props.title ? <Image source={require('./img/logo.png')} style={style.logo} resizeMethod="scale" resizeMode="contain"/> :
                 <Text style={style.titleText}>{this.props.title}</Text>}
+                {this.props.button ? (<View style={{alignItems:'flex-end'}}>{this.props.button}</View>) : null}
             </View>
         );
     }
@@ -43,6 +43,7 @@ const style = StyleSheet.create({
 
 Header.propTypes = {
     title: PropTypes.string,
+    button: PropTypes.node,
 };
 
 export default Header;

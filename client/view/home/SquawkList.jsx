@@ -23,4 +23,10 @@ SquawkList.propTypes = {
   squawks:  PropTypes.array.isRequired,
 };
 
+const mapStateToProps = (state) => {
+    return { list: state.messages.posts,
+        startIndex: state.messages.startIndex,
+        canDelete: state.messages.canDelete  };
+}
+
 export default SquawkList;
