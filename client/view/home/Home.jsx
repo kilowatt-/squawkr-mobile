@@ -13,12 +13,13 @@ class Home extends React.Component {
 
     createButton() {
         return <Button
+            adjustsFontSizeToFit={true}
             icon=
                 {<Icon
                     name='create'
                     size={30}
-                    color="#2a8dc6"/>}
-        type="clear" title="New Squawk" />;
+                    color="#fff"/>}
+        type="clear" />;
     }
 
     render() {

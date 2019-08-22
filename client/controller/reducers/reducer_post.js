@@ -11,9 +11,9 @@ import {
 	DELETE_SUCCESS,
 	DELETE_FAILURE,
 
-	SWITCH_PAGE_BEGIN,
-	SWITCH_PAGE_SUCCESS,
-	SWITCH_PAGE_FAILURE,
+	GET_MORE_BEGIN,
+	GET_MORE_SUCCESS,
+	GET_MORE_FAILURE,
 
 	ENABLE_DELETE,
 	DISABLE_DELETE,
@@ -75,7 +75,7 @@ export const postReducer = (state = initialState, action) => {
 		};
 	}
 
-	else if (action.type === GET_POSTS_SUCCESS || action.type === POST_MESSAGE_SUCCESS || action.type === DELETE_SUCCESS || action.type === SWITCH_PAGE_SUCCESS) {
+	else if (action.type === GET_POSTS_SUCCESS || action.type === POST_MESSAGE_SUCCESS || action.type === DELETE_SUCCESS || action.type === GET_MORE_SUCCESS) {
 		return {
 			...state,
 			loading: false,
@@ -85,7 +85,7 @@ export const postReducer = (state = initialState, action) => {
 		};
 	}
 
-	else if (action.type === GET_POSTS_FAILURE || action.type === POST_MESSAGE_FAILURE || action.type === DELETE_FAILURE || action.type === SWITCH_PAGE_FAILURE) {
+	else if (action.type === GET_POSTS_FAILURE || action.type === POST_MESSAGE_FAILURE || action.type === DELETE_FAILURE || action.type === GET_MORE_FAILURE) {
 		return {
 			...state,
 			loading: false,
@@ -94,7 +94,7 @@ export const postReducer = (state = initialState, action) => {
 		};
 	}
 
-	else if (action.type === SWITCH_PAGE_BEGIN) {
+	else if (action.type === GET_MORE_BEGIN) {
 		let refresh = false;
 
 		if (state.newSquawks && action.payload > 0)

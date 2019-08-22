@@ -9,3 +9,4 @@ class DetailedView extends React.Component {
 
     }
 }
+

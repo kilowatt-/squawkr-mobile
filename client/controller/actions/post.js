@@ -12,9 +12,9 @@ export const DELETE_BEGIN = 'DELETE_BEGIN';
 export const DELETE_SUCCESS = 'DELETE_SUCCESS';
 export const DELETE_FAILURE = 'DELETE_FAILURE';
 
-export const SWITCH_PAGE_BEGIN = 'SWITCH_PAGE_BEGIN';
-export const SWITCH_PAGE_SUCCESS = 'SWITCH_PAGE_SUCCESS';
-export const SWITCH_PAGE_FAILURE = 'SWITCH_PAGE_FAILURE';
+export const GET_MORE_BEGIN = 'SWITCH_PAGE_BEGIN';
+export const GET_MORE_SUCCESS = 'SWITCH_PAGE_SUCCESS';
+export const GET_MORE_FAILURE = 'SWITCH_PAGE_FAILURE';
 
 export const ENABLE_DELETE = 'ENABLE_DELETE';
 export const DISABLE_DELETE = 'DISABLE_DELETE';
@@ -40,20 +40,20 @@ export function getPosts() {
 	};
 }
 
-export function switchPage(startIndex) {
+export function getMore(startIndex) {
 	return dispatch => {
-		dispatch(switchPageBegin(startIndex));
+		dispatch(getMoreBegin(startIndex));
 
 		return fetch(Config.API_URL + '/squawks/getStartingFrom/' + startIndex)
 		.then(handleErrors)
 		.then(res => res.json())
 		.then(json => {
-			dispatch(switchPageSuccess(json));
+			dispatch(getMoreSuccess(json));
 			return json;
 		})
 		.catch(error => {
 			console.log(error);
-			dispatch(switchPageFailure(error));
+			dispatch(getMoreFailure(error));
 		});
 	};
 }
@@ -64,7 +64,7 @@ function postMessage(dispatch, name, message, file, replyTo) {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
-    			'Content-Type': 'application/json',
+				'Content-Type': 'application/json',
 			},
 
 			body: JSON.stringify({
@@ -184,18 +184,18 @@ export const deleteMessageFailure = error => ({
 });
 
 // Switch page (next page/previous page button)
-export const switchPageBegin = start => ({
-	type: SWITCH_PAGE_BEGIN,
+export const getMoreBegin = start => ({
+	type: GET_MORE_BEGIN,
 	payload: start,
 });
 
-export const switchPageSuccess = result => ({
-	type: SWITCH_PAGE_SUCCESS,
+export const getMoreSuccess = result => ({
+	type: GET_MORE_SUCCESS,
 	payload: result,
 });
 
-export const switchPageFailure = error => ({
-	type: SWITCH_PAGE_FAILURE,
+export const getMoreFailure = error => ({
+	type: GET_MORE_FAILURE,
 	payload: { error },
 });
 

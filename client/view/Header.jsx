@@ -19,12 +19,11 @@ class Header extends React.Component {
 
 const style = StyleSheet.create({
     title: {
-        shadowOffset: { width: 10, height: 10 },
+        shadowOffset: { width: 25, height: 10 },
         shadowColor: 'black',
         shadowOpacity: 1,
-        elevation: 3,
-        // background color must be set
-        backgroundColor : '#fff',
+        elevation: 20,
+        backgroundColor : '#2a8dc6',
         flex: 0.10,
         justifyContent: 'center',
     },

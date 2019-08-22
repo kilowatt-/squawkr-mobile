@@ -12,7 +12,7 @@ export function getDetail(id) {
 	return dispatch => {
 		dispatch(getDetailBegin(id));
 
-		return fetch(Config.API_URL + "/squawks/" + id)
+		return fetch(Config.API_URL + '/squawks/' + id)
 		.then(handleErrors)
 		.then(res => res.json())
 		.then(json => {
@@ -26,29 +26,29 @@ export function getDetail(id) {
 export const getDetailBegin = (id) => {
 	return {
 		type: GET_DETAIL_BEGIN,
-		payload: id
-	}
-}
+		payload: id,
+	};
+};
 
 export const getDetailSuccess = result => {
 	return {
 		type: GET_DETAIL_SUCCESS,
-		payload: result
-	}
-}
+		payload: result,
+	};
+};
 
 export const getDetailFail = error => {
 	return {
 		type: GET_DETAIL_FAIL,
-		payload: error
-	}
-}
+		payload: error,
+	};
+};
 
 export const closeDetail = () => {
 	return {
-		type: CLOSE_DETAIL
-	}
-}
+		type: CLOSE_DETAIL,
+	};
+};
 
 function handleErrors(response) {
 

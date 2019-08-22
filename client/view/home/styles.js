@@ -5,4 +5,8 @@ export const styles = StyleSheet.create({
         flex: 0.9,
         flexDirection: 'column',
     },
+
+    emptyOrErrorList: {
+        justifyContent: 'center',
+    },
 });
