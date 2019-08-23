@@ -9,6 +9,9 @@ class Squawk extends React.Component {
         return (<ListItem key={this.props.squawk._id}
                           Component={TouchableScale}
                           containerStyle={styles.squawkContainer}
+                          onPress={() => {this.props.navigation.push('DetailedView', {
+                              id: this.props.squawk._id,
+                          });}}
                           friction={90}
                           tension={100}
                           activeScale={1.05}

@@ -1,8 +1,7 @@
-import { CLOSE, GET_DETAIL_BEGIN, GET_DETAIL_SUCCESS, GET_DETAIL_FAIL, CLOSE_DETAIL} from '../actions/detail.js';
+import { GET_DETAIL_BEGIN, GET_DETAIL_SUCCESS, GET_DETAIL_FAIL, CLOSE_DETAIL} from '../actions/detail.js';
 
 const initialState = {
-	detail: CLOSE,
-	loading: false,
+	loading: true,
 	quote: null,
 	post: null,
 	error: null

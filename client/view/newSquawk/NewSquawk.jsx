@@ -9,6 +9,9 @@ import ImagePicker from 'react-native-image-picker';
 
 
 class NewSquawk extends React.Component {
+    static navigationOptions = {
+        header: null,
+    };
 
     constructor(props) {
         super(props);
@@ -19,6 +22,7 @@ class NewSquawk extends React.Component {
             charRemaining: 200,
             error: '',
             file: null,
+            postStatusChangeFlag: false
         };
 
         this.createButton = this.createButton.bind(this);
@@ -26,6 +30,19 @@ class NewSquawk extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.showImagePicker = this.showImagePicker.bind(this);
         this.handleImageSelect = this.handleImageSelect.bind(this);
+
+
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.posting !== prevProps.posting) {
+            if (!this.state.postStatusChangeFlag) {
+                this.setState({postStatusChangeFlag: true});
+            }
+            else {
+                this.props.navigation.navigate('Home');
+            }
+        }
     }
 
     showImagePicker() {
@@ -41,7 +58,6 @@ class NewSquawk extends React.Component {
             }
         });
     }
-
 
     validate() {
         if (this.state.name.length > 0) {
@@ -63,7 +79,7 @@ class NewSquawk extends React.Component {
     handleSubmit() {
         if (this.validate()) {
             this.props.post(this.state.name, this.state.message, this.state.file,
-                (this.props.replyTo && this.props.replyTo >= 0 ? this.props.replyTo : -1));
+                (this.props.navigation.state.params && this.props.navigation.state.params.replyTo && this.props.navigation.state.params.replyTo >= 0 ? this.props.navigation.state.params.replyTo : -1));
         }
     }
 
@@ -121,13 +137,13 @@ class NewSquawk extends React.Component {
             <View style={styles.container}>
                 {this.props.posting ? <ActivityIndicator color="#2a8dc6" size="large" /> : null }
                 <View style={styles.replyView}>
-                    {this.props.replyTo ?
+                    {this.props.navigation.state.params && this.props.navigation.state.params.replyTo ?
                         <>
                             <Icon
                                 name="reply"
                                 size={20}
                                 color="#C0C0C0"/>
-                            <Text style={styles.replyText}>Replying to {this.props.replyToName}</Text>
+                            <Text style={styles.replyText}>Replying to {this.props.navigation.state.params.replyToName}</Text>
                         </> : null}
                 </View>
 

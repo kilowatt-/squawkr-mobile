@@ -1,10 +1,10 @@
 import React from 'react';
 import {FlatList, Text, View} from 'react-native';
-import PropTypes from 'prop-types';
 import Squawk from './Squawk';
 import {connect} from 'react-redux';
 import {styles} from '../styles';
 import {getMore, getPosts} from '../../controller/actions/post';
+
 
 class SquawkList extends React.Component {
     constructor(props) {
@@ -40,7 +40,7 @@ class SquawkList extends React.Component {
         return (
             <>
                 <FlatList data={this.props.squawks}
-                          renderItem={(squawk) => <Squawk squawk={squawk.item}/>}
+                          renderItem={(squawk) => <Squawk squawk={squawk.item} navigation={this.props.navigation}/>}
                           keyExtractor={(squawk) => squawk._id.toString()}
                         onRefresh={() => this.props.getPosts()}
                           refreshing={this.props.refreshing}
@@ -63,8 +63,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getPosts: () => {dispatch(getPosts())},
-        getMore: (index) => {dispatch(getMore(index))}
+        getPosts: () => {dispatch(getPosts());},
+        getMore: (index) => {dispatch(getMore(index));},
     };
 };
 

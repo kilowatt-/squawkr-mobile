@@ -6,10 +6,17 @@ import SquawkList from './SquawkList';
 import {Button, Icon} from 'react-native-elements';
 
 class Home extends React.Component {
+
+    static navigationOptions = {
+        header: null,
+    };
+
     constructor(props) {
         super(props);
         this.createButton = this.createButton.bind(this);
     }
+
+
 
     createButton() {
         return <Button
@@ -19,7 +26,8 @@ class Home extends React.Component {
                     name='create'
                     size={30}
                     color="#fff"/>}
-        type="clear" />;
+        type="clear"
+            onPress={() => this.props.navigation.navigate('NewSquawk')}/>;
     }
 
     render() {
@@ -27,7 +35,7 @@ class Home extends React.Component {
             <>
                 <Header button={this.createButton()}/>
                 <View style={styles.container} >
-                    <SquawkList />
+                    <SquawkList navigation={this.props.navigation} />
                 </View>
             </>
         );
