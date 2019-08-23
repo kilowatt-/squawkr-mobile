@@ -34,6 +34,7 @@ class ReplyList extends React.Component {
                               renderItem={(squawk) => <Squawk squawk={squawk.item} navigation={this.props.navigation}/>}
                               keyExtractor={(squawk) => squawk._id.toString()}
                               ListEmptyComponent={() => {
+                                  return <Text style={{fontWeight: 'bold', textAlign: 'center'}}>No replies</Text>
                               }}
                     />}
                 </View>
