@@ -75,12 +75,23 @@ export const postReducer = (state = initialState, action) => {
 		};
 	}
 
-	else if (action.type === GET_POSTS_SUCCESS || action.type === POST_MESSAGE_SUCCESS || action.type === DELETE_SUCCESS || action.type === GET_MORE_SUCCESS) {
+	else if (action.type === GET_POSTS_SUCCESS || action.type === POST_MESSAGE_SUCCESS || action.type === DELETE_SUCCESS) {
 		return {
 			...state,
 			loading: false,
 			overLimit: action.payload.overLimit,
 			posts: action.payload.posts,
+			error: null,
+		};
+	}
+
+	else if (action.type === GET_MORE_SUCCESS) {
+		let posts = state.posts.concat(action.payload.posts);
+		return {
+			...state,
+			loading: false,
+			overLimit: action.payload.overLimit,
+			posts: posts,
 			error: null,
 		};
 	}
