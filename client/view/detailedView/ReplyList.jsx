@@ -33,6 +33,8 @@ class ReplyList extends React.Component {
                     <FlatList data={this.props.squawks}
                               renderItem={(squawk) => <Squawk squawk={squawk.item} navigation={this.props.navigation}/>}
                               keyExtractor={(squawk) => squawk._id.toString()}
+                              ListEmptyComponent={() => {
+                              }}
                     />}
                 </View>
             </>);

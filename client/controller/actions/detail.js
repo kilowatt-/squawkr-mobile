@@ -1,8 +1,6 @@
 import Config from '../../Config.js';
 
-export const CLOSE = -1;
-export const VIEW_DETAIL = 'VIEW_DETAIL';
-export const CLOSE_DETAIL = 'CLOSE_DETAIL';
+export const SET_DETAIL = 'SET_DETAIL';
 
 export const GET_DETAIL_BEGIN = 'GET_DETAIL_START';
 export const GET_DETAIL_SUCCESS = 'GET_DETAIL_SUCCESS';
@@ -22,6 +20,18 @@ export function getDetail(id) {
 		.catch(error => dispatch(getDetailFail(error)));
 	};
 }
+
+export const setDetail = (loading, quote, post, error) => {
+	return {
+		type: SET_DETAIL,
+		payload: {
+			loading: loading,
+			quote: quote,
+			post: post,
+			error: error,
+		},
+	};
+};
 
 export const getDetailBegin = (id) => {
 	return {
@@ -44,11 +54,6 @@ export const getDetailFail = error => {
 	};
 };
 
-export const closeDetail = () => {
-	return {
-		type: CLOSE_DETAIL,
-	};
-};
 
 function handleErrors(response) {
 

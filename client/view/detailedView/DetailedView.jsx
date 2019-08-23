@@ -5,7 +5,7 @@ import Header from '../Header';
 import {styles} from '../styles';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {getDetail} from '../../controller/actions/detail';
+import {getDetail, setDetail} from '../../controller/actions/detail';
 import Config from '../../Config';
 import ReplyList from './ReplyList';
 
@@ -18,10 +18,71 @@ class DetailedView extends React.Component {
         super(props);
         this.createButton = this.createButton.bind(this);
         this.parseDate = this.parseDate.bind(this);
+        this.subscribe = this.subscribe.bind(this);
+        this.unsubscribe = this.unsubscribe.bind(this);
+        this.setCache = this.setCache.bind(this);
+        this.getCacheAndRestoreScreen = this.getCacheAndRestoreScreen.bind(this);
+
+        this.state = {
+            cacheFlag: false,
+        };
+    }
+
+    setCache() {
+        this.props.navigation.setParams(
+            {
+                'cache': {
+                    loading: false,
+                    quote: this.props.quote,
+                    post: this.props.post,
+                    error: this.props.error,
+                },
+            }
+        );
+
+        this.setState({
+            cacheFlag: true,
+        });
+    }
+
+    getCacheAndRestoreScreen() {
+        let cache = this.props.navigation.getParam('cache', null);
+
+        if (cache) {
+            this.props.setDetail(cache);
+            this.props.navigation.setParams({
+                'cache': null,
+            });
+
+            this.setState({
+                cacheFlag: false,
+            });
+        }
+    }
+
+    subscribe() {
+        const {navigation} = this.props;
+        this.willBlurListener = navigation.addListener('willBlur', () => {
+            this.setCache();
+        });
+
+        this.willFocusListener = navigation.addListener('willFocus', () => {
+            this.getCacheAndRestoreScreen();
+        });
+    }
+
+    unsubscribe() {
+        this.willBlurListener.remove();
+        this.willFocusListener.remove();
     }
 
     componentDidMount() {
         this.props.getDetail(this.props.navigation.state.params.id);
+        this.subscribe();
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     createButton() {
@@ -67,10 +128,8 @@ class DetailedView extends React.Component {
                                     }}/> : null}
                                 <Text style={styles.datePostedText}>Posted on: {this.parseDate(this.props.post.date)}</Text>
                             </View>
-
-
                         </View> }
-                    <ReplyList id={this.props.navigation.state.params.id} navigation={this.props.navigation}/>
+                    <ReplyList cacheFlag={this.state.cacheFlag} id={this.props.navigation.state.params.id} navigation={this.props.navigation}/>
                 </View>
             </>
         );
@@ -89,6 +148,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getDetail: (id) => {dispatch(getDetail(id));},
+        setDetail: (cache) => {dispatch(setDetail(cache.loading, cache.quote, cache.post, cache.error));},
     };
 };
 

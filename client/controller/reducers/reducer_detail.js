@@ -1,23 +1,23 @@
-import { GET_DETAIL_BEGIN, GET_DETAIL_SUCCESS, GET_DETAIL_FAIL, CLOSE_DETAIL} from '../actions/detail.js';
+import { GET_DETAIL_BEGIN, GET_DETAIL_SUCCESS, GET_DETAIL_FAIL, SET_DETAIL} from '../actions/detail.js';
 
 const initialState = {
 	loading: true,
 	quote: null,
 	post: null,
-	error: null
-}
+	error: null,
+};
 
 export const detailReducer = (state = initialState, action) => {
-	if (action.type === CLOSE_DETAIL)  
-		return initialState;
+	if (action.type === SET_DETAIL)
+		{return action.payload;}
 	else if (action.type === GET_DETAIL_BEGIN) {
 		return {
 			...state,
 			detail: action.payload,
 			loading: true,
 			post: null,
-			error: null
-		}
+			error: null,
+		};
 	}
 	else if (action.type === GET_DETAIL_SUCCESS) {
 		return {
@@ -25,8 +25,8 @@ export const detailReducer = (state = initialState, action) => {
 			loading: false,
 			post: action.payload.post,
 			quote: action.payload.quote,
-			error: null
-		}
+			error: null,
+		};
 	}
 
 	else if (action.type === GET_DETAIL_FAIL) {
@@ -35,9 +35,9 @@ export const detailReducer = (state = initialState, action) => {
 			loading: false,
 			post: null,
 			quote: null,
-			error: action.payload
-		}
+			error: action.payload,
+		};
 	}
 	else
-		return state;
-}
+		{return state;}
+};
