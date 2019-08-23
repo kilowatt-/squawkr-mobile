@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
-    listContainer: {
+    container: {
         flex: 0.9,
         flexDirection: 'column',
     },
@@ -34,6 +34,32 @@ export const styles = StyleSheet.create({
     },
 
     squawkPreview: {
+    },
+
+    replyView: {
+        flex: 0.05,
+        flexDirection: 'row',
+        height: '5%',
+        justifyContent: 'flex-start',
+    },
+
+    replyText: {
+        color: '#C0C0C0',
+    },
+
+    charRemainingLt10: {
+        color: 'red',
+        paddingRight: 5,
+        position: 'absolute',
+        right: 0,
+    },
+
+    charRemaining: {
+        color: '#C0C0C0',
+        paddingRight: 5,
+        textAlign: 'right',
+        position: 'absolute',
+        right: 0,
     },
 
 });

@@ -88,20 +88,7 @@ export function post (name, message, file, replyTo)  {
 	return dispatch => {
 		dispatch(postMessageBegin());
 
-		if (file === null)
-			{postMessage(dispatch, name, message, file, replyTo);}
-
-		else {
-			let fr = new FileReader();
-
-			fr.onload = e => {
-				let encoded = e.target.result;
-
-				postMessage(dispatch, name, message, encoded, replyTo);
-			};
-
-			fr.readAsDataURL(file);
-		}
+		postMessage(dispatch, name, message, file, replyTo);
 	};
 }
 

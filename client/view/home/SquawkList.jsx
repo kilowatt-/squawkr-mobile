@@ -3,7 +3,7 @@ import {FlatList, Text, View} from 'react-native';
 import PropTypes from 'prop-types';
 import Squawk from './Squawk';
 import {connect} from 'react-redux';
-import {styles} from './styles';
+import {styles} from '../styles';
 import {getMore, getPosts} from '../../controller/actions/post';
 
 class SquawkList extends React.Component {

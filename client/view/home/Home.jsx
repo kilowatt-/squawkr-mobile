@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../Header';
 import {View} from 'react-native';
-import {styles} from './styles';
+import {styles} from '../styles';
 import SquawkList from './SquawkList';
 import {Button, Icon} from 'react-native-elements';
 
@@ -26,7 +26,7 @@ class Home extends React.Component {
         return (
             <>
                 <Header button={this.createButton()}/>
-                <View style={styles.listContainer} >
+                <View style={styles.container} >
                     <SquawkList />
                 </View>
             </>
