@@ -3,7 +3,6 @@ import {Button, Icon} from 'react-native-elements';
 import {View, Text, ActivityIndicator, Image} from 'react-native';
 import Header from '../Header';
 import {styles} from '../styles';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {getDetail, setDetail} from '../../controller/actions/detail';
 import Config from '../../Config';
@@ -32,7 +31,7 @@ class DetailedView extends React.Component {
     setCache() {
         this.props.navigation.setParams(
             {
-                'cache': {
+                'cachedDetail': {
                     loading: false,
                     quote: this.props.quote,
                     post: this.props.post,
@@ -40,23 +39,19 @@ class DetailedView extends React.Component {
                 },
             }
         );
-
-        this.setState({
-            cacheFlag: true,
-        });
     }
 
     getCacheAndRestoreScreen() {
-        let cache = this.props.navigation.getParam('cache', null);
+        let cache = this.props.navigation.getParam('cachedDetail', null);
 
         if (cache) {
-            this.props.setDetail(cache);
-            this.props.navigation.setParams({
-                'cache': null,
+            this.setState({
+                cacheFlag: !this.state.cacheFlag,
             });
 
-            this.setState({
-                cacheFlag: false,
+            this.props.setDetail(cache);
+            this.props.navigation.setParams({
+                'cachedDetail': null,
             });
         }
     }
@@ -136,7 +131,7 @@ class DetailedView extends React.Component {
                        </>
 
                         }
-                    <ReplyList cacheFlag={this.state.cacheFlag} id={this.props.navigation.state.params.id} navigation={this.props.navigation}/>
+                    <ReplyList cacheFlag={this.state.cacheFlag} id={this.props.navigation.state.params.id} />
                 </View>
 
             </>

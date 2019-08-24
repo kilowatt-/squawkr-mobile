@@ -14,7 +14,7 @@ class Quote extends React.Component {
                         name="reply"
                         size={15}
                         color="#c0c0c0"/>
-                    <Squawk squawk={this.props.quote} navigation={this.props.navigation} />
+                    <Squawk squawk={this.props.quote} />
                 </>
             );
         }

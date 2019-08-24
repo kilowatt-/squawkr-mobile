@@ -3,6 +3,7 @@ import {ListItem} from 'react-native-elements';
 import PropTypes from 'prop-types';
 import {styles} from '../styles';
 import TouchableScale from 'react-native-touchable-scale';
+import { withNavigation } from 'react-navigation';
 
 class Squawk extends React.Component {
     render() {
@@ -28,4 +29,4 @@ Squawk.propTypes = {
     squawk: PropTypes.object.isRequired,
 };
 
-export default Squawk;
+export default withNavigation(Squawk);

@@ -4,6 +4,7 @@ import Squawk from './Squawk';
 import {connect} from 'react-redux';
 import {styles} from '../styles';
 import {getMore, getPosts} from '../../controller/actions/post';
+import { withNavigation } from 'react-navigation';
 
 
 class SquawkList extends React.Component {
@@ -64,4 +65,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SquawkList);
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(SquawkList));

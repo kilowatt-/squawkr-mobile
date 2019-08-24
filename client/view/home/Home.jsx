@@ -35,7 +35,7 @@ class Home extends React.Component {
             <>
                 <Header button={this.createButton()}/>
                 <View style={styles.container} >
-                    <SquawkList navigation={this.props.navigation} />
+                    <SquawkList />
                 </View>
             </>
         );

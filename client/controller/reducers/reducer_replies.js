@@ -2,6 +2,7 @@ import {
 	GET_REPLIES_BEGIN,
 	GET_REPLIES_SUCCESS,
 	GET_REPLIES_FAILURE,
+	RESTORE_REPLY_CACHE,
 } from '../actions/replies.js';
 
 const initialState = {
@@ -33,6 +34,15 @@ export const repliesReducer = (state = initialState, action) => {
 			...state,
 			replies_loading: false,
 			replies_error: true,
+		};
+	}
+
+	else if (action.type === RESTORE_REPLY_CACHE) {
+		return {
+			...state,
+			replies_loading: action.payload.replies_loading,
+			replies_error: action.payload.replies_error,
+			replies: action.payload.replies,
 		};
 	}
 

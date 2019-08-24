@@ -4,6 +4,8 @@ export const GET_REPLIES_BEGIN = 'GET_REPLIES_BEGIN';
 export const GET_REPLIES_SUCCESS = 'GET_REPLIES_SUCCESS';
 export const GET_REPLIES_FAILURE = 'GET_REPLIES_FAILURE';
 
+export const RESTORE_REPLY_CACHE = 'RESTORE_REPLY_CACHE';
+
 export const getRepliesBegin = () => ({
 	type: GET_REPLIES_BEGIN,
 });
@@ -16,6 +18,11 @@ export const getRepliesSuccess = replies => ({
 export const getRepliesFailure = failure => ({
 	type: GET_REPLIES_FAILURE,
 	payload: {failure},
+});
+
+export const restoreReplyCache = (cache) => ({
+	type: RESTORE_REPLY_CACHE,
+	payload: cache,
 });
 
 export function getReplies(id) {
