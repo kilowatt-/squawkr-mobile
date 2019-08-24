@@ -91,7 +91,7 @@ export const styles = StyleSheet.create({
     },
 
     detailedViewMessage: {
-
+        alignSelf: 'flex-start'
     },
 
     detailedViewMessageText: {

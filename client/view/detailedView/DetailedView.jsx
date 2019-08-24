@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import {getDetail, setDetail} from '../../controller/actions/detail';
 import Config from '../../Config';
 import ReplyList from './ReplyList';
+import Quote from './Quote';
 
 class DetailedView extends React.Component {
     static navigationOptions = {
@@ -114,23 +115,30 @@ class DetailedView extends React.Component {
             <>
                 <Header title="View Squawk" button={this.createButton()} />
                 <View style={styles.container}>
+
                     {this.props.loading ? <ActivityIndicator color="#2a8dc6" size="large" /> :
-                        <View style={styles.detailedViewContainer}>
-                            <View style={styles.detailedViewHeader}>
-                                <Text style={styles.detailedViewHeaderText}>{this.props.post.poster}</Text>
-                            </View>
-                            <View style={styles.detailedViewMessage}>
-                                <Text style={styles.detailedViewMessageText}>{this.props.post.message}</Text>
-                                {this.props.post.hasImage ? <Image
-                                    style={{width: '50%', height: '50%'}}
-                                    source={{uri:
-                                            imgUrl,
-                                    }}/> : null}
-                                <Text style={styles.datePostedText}>Posted on: {this.parseDate(this.props.post.date)}</Text>
-                            </View>
-                        </View> }
+                       <>
+                           <Quote quote={this.props.quote} navigation={this.props.navigation}/>
+                           <View style={styles.detailedViewContainer}>
+                               <View style={styles.detailedViewHeader}>
+                                   <Text style={styles.detailedViewHeaderText}>{this.props.post.poster}</Text>
+                               </View>
+                               <View style={styles.detailedViewMessage}>
+                                   <Text style={styles.detailedViewMessageText}>{this.props.post.message}</Text>
+                                   {this.props.post.hasImage ? <Image
+                                       style={{width: '50%', height: '50%'}}
+                                       source={{uri:
+                                           imgUrl,
+                                       }}/> : null}
+                                   <Text style={styles.datePostedText}>Posted on: {this.parseDate(this.props.post.date)}</Text>
+                               </View>
+                           </View>
+                       </>
+
+                        }
                     <ReplyList cacheFlag={this.state.cacheFlag} id={this.props.navigation.state.params.id} navigation={this.props.navigation}/>
                 </View>
+
             </>
         );
     }

@@ -17,10 +17,6 @@ class SquawkList extends React.Component {
        this.props.getPosts();
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot): void {
-
-    }
-
     getMore() {
 
             let index = this.props.startIndex;

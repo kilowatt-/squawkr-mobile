@@ -17,8 +17,7 @@ class ReplyList extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.id !== prevProps.id)
-            {this.props.getReplies(this.props.id)};
+
     }
 
     render() {
