@@ -1,4 +1,5 @@
 import React from 'react';
+import {Dimensions} from 'react-native';
 import {Button, Icon} from 'react-native-elements';
 import {View, Text, ActivityIndicator, Image} from 'react-native';
 import Header from '../Header';
@@ -8,6 +9,8 @@ import {getDetail, setDetail} from '../../controller/actions/detail';
 import Config from '../../Config';
 import ReplyList from './ReplyList';
 import Quote from './Quote';
+
+const { width, height } = Dimensions.get('window');
 
 class DetailedView extends React.Component {
     static navigationOptions = ({navigation}) => {
@@ -109,6 +112,8 @@ class DetailedView extends React.Component {
 
     render() {
         let imgUrl = Config.IMG_BUCKET_URL + this.props.navigation.state.params.id;
+
+
         return (
             <>
                 <View style={styles.container}>
@@ -122,7 +127,11 @@ class DetailedView extends React.Component {
                                <View style={styles.detailedViewMessage}>
                                    <Text style={styles.detailedViewMessageText}>{this.props.post.message}</Text>
                                    {this.props.post.hasImage ? <Image
-                                       style={{width: '50%', height: '50%'}}
+                                       resizeMode="contain"
+                                       style={(height >= width) ?
+                                           {height:(0.3 * height),
+                                           }  : {width: (0.3 * width)}}
+
                                        source={{uri:
                                            imgUrl,
                                        }}/> : null}

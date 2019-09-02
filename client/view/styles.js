@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
     },
 
     detailedViewContainer: {
-        flex: 0.5,
+        maxHeight: '50%',
         marginLeft: 10,
         marginTop: 10,
         marginBottom: 10,
@@ -91,7 +91,7 @@ export const styles = StyleSheet.create({
     },
 
     detailedViewMessage: {
-
+        paddingLeft: 5
     },
 
     detailedViewMessageText: {
@@ -100,6 +100,8 @@ export const styles = StyleSheet.create({
 
     datePostedText: {
         fontSize: 10,
+        paddingBottom: 10,
+        paddingLeft: 5
     },
 
     replyListContainer: {
