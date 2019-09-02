@@ -6,7 +6,7 @@ with the web client.
 
 I created this to teach myself React Native in preparation for my new job, and had a lot of fun with it!
 
-###Work in Progress
+### Work in Progress
 
 - Improving detailed view UI - scaling images is a bit troublesome
 - Implementing real-time updates (like on the web client) 
