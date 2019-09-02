@@ -28,6 +28,7 @@ build/
 .idea
 .gradle
 local.properties
+android/gradle.properties
 *.iml
 
 # node.js
@@ -59,3 +60,5 @@ buck-out/
 /ios/Pods/
 
 pusher.js
+
+android/app/squawkr.keystore
