@@ -27,10 +27,33 @@ class DetailedView extends React.Component {
         this.unsubscribe = this.unsubscribe.bind(this);
         this.setCache = this.setCache.bind(this);
         this.getCacheAndRestoreScreen = this.getCacheAndRestoreScreen.bind(this);
+        this.isPortrait = this.isPortrait.bind(this);
 
         this.state = {
             cacheFlag: false,
+            isPortrait: this.isPortrait(),
         };
+    }
+
+    componentDidMount() {
+        this.props.getDetail(this.props.navigation.state.params.id);
+        this.props.navigation.setParams({header:  <Header title="View Squawk" button={this.createButton()} />});
+        this.subscribe();
+        Dimensions.addEventListener('change', () => {
+            this.setState({
+                isPortrait: this.isPortrait(),
+                imageLoading: false,
+            });
+        });
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
+    isPortrait() {
+        const dim = Dimensions.get('screen');
+        return dim.height >= dim.width;
     }
 
     setCache() {
@@ -77,15 +100,7 @@ class DetailedView extends React.Component {
         this.willFocusListener.remove();
     }
 
-    componentDidMount() {
-        this.props.getDetail(this.props.navigation.state.params.id);
-        this.props.navigation.setParams({header:  <Header title="View Squawk" button={this.createButton()} />});
-        this.subscribe();
-    }
 
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
 
     createButton() {
         return <Button
@@ -126,15 +141,18 @@ class DetailedView extends React.Component {
                                </View>
                                <View style={styles.detailedViewMessage}>
                                    <Text style={styles.detailedViewMessageText}>{this.props.post.message}</Text>
-                                   {this.props.post.hasImage ? <Image
-                                       resizeMode="contain"
-                                       style={(height >= width) ?
-                                           {height:(0.3 * height),
-                                           }  : {width: (0.3 * width)}}
+                                   {this.props.post.hasImage ? <>
 
+                                       <Image
+                                       resizeMode="contain"
+                                       style={this.isPortrait() ? {height:(0.3 * height)} : {height: (0.1 * width)}}
+                                       onLoadStart={() => this.setState({imageLoading: true})}
+                                       onLoadEnd={() => this.setState({imageLoading: false})}
                                        source={{uri:
                                            imgUrl,
-                                       }}/> : null}
+                                       }}/>
+                                       {this.state.imageLoading  ? <ActivityIndicator color="#2a8dc6" size="small" /> : null}
+                                       </> : null}
                                    <Text style={styles.datePostedText}>Posted on: {this.parseDate(this.props.post.date)}</Text>
                                </View>
                            </View>

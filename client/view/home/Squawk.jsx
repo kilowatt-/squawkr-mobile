@@ -19,6 +19,7 @@ class Squawk extends React.Component {
                           title={this.props.squawk.poster}
                           titleStyle={styles.squawkPoster}
                           subtitle={this.props.squawk.message}
+                          subtitleProps={{numberOfLines: 1}}
                           subtitleStyle={styles.squawkPreview}
                           bottomDivider = {true}
         />);

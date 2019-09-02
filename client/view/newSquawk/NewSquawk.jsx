@@ -43,6 +43,7 @@ class NewSquawk extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.posting !== prevProps.posting) {
             if (!this.state.postStatusChangeFlag) {
+                // eslint-disable-next-line react/no-did-update-set-state
                 this.setState({postStatusChangeFlag: true});
             }
             else {
@@ -139,7 +140,6 @@ class NewSquawk extends React.Component {
     render() {
         return (
             <>
-
             <View style={styles.container}>
                 {this.props.posting ? <ActivityIndicator color="#2a8dc6" size="large" /> : null }
                 <View style={styles.replyView}>

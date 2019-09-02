@@ -91,7 +91,9 @@ export const styles = StyleSheet.create({
     },
 
     detailedViewMessage: {
-        paddingLeft: 5
+        paddingLeft: 5,
+        paddingTop: 5,
+        paddingBottom: 5,
     },
 
     detailedViewMessageText: {
