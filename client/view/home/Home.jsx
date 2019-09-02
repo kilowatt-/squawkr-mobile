@@ -7,8 +7,10 @@ import {Button, Icon} from 'react-native-elements';
 
 class Home extends React.Component {
 
-    static navigationOptions = {
-        header: null,
+    static navigationOptions = ({navigation}) => {
+        return {
+            header: navigation.getParam('header', null),
+        };
     };
 
     constructor(props) {
@@ -16,14 +18,16 @@ class Home extends React.Component {
         this.createButton = this.createButton.bind(this);
     }
 
-
+    componentDidMount() {
+        this.props.navigation.setParams({header: <Header button={this.createButton()} />});
+    }
 
     createButton() {
         return <Button
             adjustsFontSizeToFit={true}
             icon=
                 {<Icon
-                    name='create'
+                    name="create"
                     size={30}
                     color="#fff"/>}
         type="clear"
@@ -33,7 +37,6 @@ class Home extends React.Component {
     render() {
         return (
             <>
-                <Header button={this.createButton()}/>
                 <View style={styles.container} >
                     <SquawkList />
                 </View>

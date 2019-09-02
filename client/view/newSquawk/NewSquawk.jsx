@@ -9,9 +9,15 @@ import ImagePicker from 'react-native-image-picker';
 
 
 class NewSquawk extends React.Component {
-    static navigationOptions = {
-        header: null,
+    static navigationOptions = ({navigation}) => {
+        return {
+            header: navigation.getParam('header', null),
+        };
     };
+
+    componentDidMount() {
+        this.props.navigation.setParams({header: <Header button={this.createButton()} />});
+    }
 
     constructor(props) {
         super(props);

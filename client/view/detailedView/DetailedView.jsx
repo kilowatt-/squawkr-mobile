@@ -10,8 +10,10 @@ import ReplyList from './ReplyList';
 import Quote from './Quote';
 
 class DetailedView extends React.Component {
-    static navigationOptions = {
-        header: null,
+    static navigationOptions = ({navigation}) => {
+        return {
+            header: navigation.getParam('header', null),
+        };
     };
 
     constructor(props) {
@@ -26,6 +28,10 @@ class DetailedView extends React.Component {
         this.state = {
             cacheFlag: false,
         };
+    }
+
+    componentDidMount() {
+        this.props.navigation.setParams({header: <Header button={this.createButton()} />});
     }
 
     setCache() {

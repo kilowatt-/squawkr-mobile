@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {styles} from '../styles';
 import {getMore, getPosts} from '../../controller/actions/post';
 import { withNavigation } from 'react-navigation';
+import Header from "../Header";
 
 
 class SquawkList extends React.Component {
@@ -12,14 +13,18 @@ class SquawkList extends React.Component {
         super(props);
         this.renderEmptyComponent = this.renderEmptyComponent.bind(this);
         this.getMore = this.getMore.bind(this);
+
+        this.state = {
+            momentum: false,
+        };
     }
 
     componentDidMount() {
        this.props.getPosts();
+       this.props.navigation.setParams({header: <Header button={this.createButton()} />});
     }
 
     getMore() {
-
             let index = this.props.startIndex;
             index += 10;
             this.props.getMore(index);
@@ -39,12 +44,16 @@ class SquawkList extends React.Component {
                 <FlatList data={this.props.squawks}
                           renderItem={(squawk) => <Squawk squawk={squawk.item} navigation={this.props.navigation}/>}
                           keyExtractor={(squawk) => squawk._id.toString()}
-                        onRefresh={() => this.props.getPosts()}
+                        onRefresh={() => {
+                                this.props.getPosts();
+                        }}
                           refreshing={this.props.refreshing}
                         ListEmptyComponent={this.renderEmptyComponent()}
-                          onEndReached={this.getMore}
-                          onEndThreshold={0}
-                />
+                          onEndReached={() => {
+                              this.getMore();
+                          }}
+                          onEndReachedThreshold={0.1}
+                 initialNumToRender={10}/>
             </>);
     }
 }
