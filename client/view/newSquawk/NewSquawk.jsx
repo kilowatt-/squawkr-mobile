@@ -6,6 +6,7 @@ import {styles} from '../styles';
 import {post} from '../../controller/actions/post';
 import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
+import {StackActions} from 'react-navigation';
 
 
 class NewSquawk extends React.Component {
@@ -28,7 +29,7 @@ class NewSquawk extends React.Component {
             charRemaining: 200,
             error: '',
             file: null,
-            postStatusChangeFlag: false
+            postStatusChangeFlag: false,
         };
 
         this.createButton = this.createButton.bind(this);
@@ -47,7 +48,7 @@ class NewSquawk extends React.Component {
                 this.setState({postStatusChangeFlag: true});
             }
             else {
-                this.props.navigation.navigate('Home');
+                this.props.navigation.dispatch(StackActions.popToTop());
             }
         }
     }
@@ -159,7 +160,7 @@ class NewSquawk extends React.Component {
                 />
 
                 <View style={{flexDirection: 'row', alignItems:'center', justifyContent: 'flex-start'}}>
-                    <Button icon={this.state.file ? <Icon name="cancel" size={30} color="red" /> :<Icon name="add-a-photo" size={30} color="#2a8dc6" />} adjustsFontSizeToFit={true}
+                    <Button icon={this.state.file ? <Icon name="cancel" size={30} color="red" /> : <Icon name="add-a-photo" size={30} color="#2a8dc6" />} adjustsFontSizeToFit={true}
                             type="clear" onPress={this.handleImageSelect} />
                     <Text style={this.state.charRemaining < 10 ? styles.charRemainingLt10 : styles.charRemaining}>
                         {this.state.charRemaining}
@@ -182,6 +183,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         post: (poster, message, file, replyTo) => dispatch(post(poster, message, file, replyTo)),
+        setDonePosting: () => dispatch(donePosting()),
     };
 };
 

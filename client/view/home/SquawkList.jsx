@@ -31,6 +31,7 @@ class SquawkList extends React.Component {
        this.subscribeToPusher();
 
         this.didFocusListener = this.props.navigation.addListener('didFocus', () => {
+
             if (this.state.newSquawksWhileAway) {
                 this.showSnackBar();
 
@@ -58,20 +59,34 @@ class SquawkList extends React.Component {
         });
 
         this.channel = this.pusher.subscribe('squawks');
-        this.channel.bind('inserted', this.props.notifyNewSquawks);
+        this.channel.bind('inserted', (update) => {
+            if (!this.props.update) {
+                this.props.notifyNewSquawks(update);
+            }
+            else {
+                this.handleNewSquawks();
+            }
+        });
     }
 
     handleNewSquawks() {
         if (this.props.update) {
+            console.log("this.props.update is true");
+
             if (this.props.navigation.isFocused()) {
                 this.showSnackBar();
             }
             else {
+                console.log("setting state to new squawks while away true");
                 this.setState({
                     newSquawksWhileAway: true,
                 });
             }
         }
+
+        console.log("this.props.update is false. info:");
+
+        console.log("this.props.posting: " + this.props.posting);
     }
 
     showSnackBar() {
@@ -138,7 +153,8 @@ const mapStateToProps = (state) => {
         error: state.messages.error,
         overLimit: state.messages.overLimit,
         startIndex: state.messages.startIndex,
-        update: state.messages.newSquawks
+        update: state.messages.newSquawks,
+        posting: state.messages.posting,
     };
 };
 

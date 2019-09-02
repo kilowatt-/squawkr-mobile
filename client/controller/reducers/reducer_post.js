@@ -42,6 +42,7 @@ export const postReducer = (state = initialState, action) => {
 			loading: true,
 			error: null,
 			startIndex: 0,
+			newSquawks: false
 		};
 	}
 
@@ -135,11 +136,12 @@ export const postReducer = (state = initialState, action) => {
 	}
 
 	else if (action.type === NOTIFY_NEW_SQUAWK) {
-		if (!state.posting)
-			{return {
+		if (!state.posting) {
+			return {
 				...state,
 				newSquawks: (!state.posting && state.posts[0]._id !== action.payload._id),
-			};}
+			};
+		}
 		else
 			{return state;}
 	}
