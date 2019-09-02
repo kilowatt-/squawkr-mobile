@@ -5,7 +5,9 @@ import {connect} from 'react-redux';
 import {styles} from '../styles';
 import {getMore, getPosts} from '../../controller/actions/post';
 import { withNavigation } from 'react-navigation';
-import Header from "../Header";
+import Pusher from 'pusher-js/react-native';
+import PusherConfig from '../../../pusher';
+import Snackbar from 'react-native-snackbar';
 
 
 class SquawkList extends React.Component {
@@ -16,11 +18,47 @@ class SquawkList extends React.Component {
 
         this.state = {
             momentum: false,
+            refreshFlag: false,
         };
+
+        this.subscribeToPusher = this.subscribeToPusher.bind(this);
+        this.notifyNewSquawks = this.notifyNewSquawks.bind(this);
     }
 
     componentDidMount() {
        this.props.getPosts();
+       this.subscribeToPusher();
+    }
+
+    subscribeToPusher() {
+        this.pusher = new Pusher(PusherConfig.PUSHER_KEY, {
+            cluster: PusherConfig.PUSHER_CLUSTER,
+            useTLS: true,
+        });
+
+        this.channel = this.pusher.subscribe('squawks');
+        this.channel.bind('inserted', this.notifyNewSquawks);
+    }
+
+    notifyNewSquawks() {
+
+
+        Snackbar.show({
+            title: 'New Squawks',
+            duration: Snackbar.LENGTH_LONG,
+            backgroundColor: '#2a8dc6',
+            color: 'white',
+            action: {
+                title: 'UPDATE',
+                color: '#ABFF94',
+                onPress: () => {
+                    this.setState({
+                        refreshFlag: !this.state.refreshFlag,
+                    });
+                    this.props.getPosts();
+                },
+            },
+        });
     }
 
     getMore() {
@@ -52,7 +90,8 @@ class SquawkList extends React.Component {
                               this.getMore();
                           }}
                           onEndReachedThreshold={0.1}
-                 initialNumToRender={10}/>
+                          extraData={this.state.refreshFlag}
+                 />
             </>);
     }
 }

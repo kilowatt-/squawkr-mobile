@@ -1,24 +1,22 @@
 import React from 'react';
 import {View, StyleSheet,Text,Image} from 'react-native';
 import PropTypes from 'prop-types';
-import {Button, Icon} from "react-native-elements";
+import {Button, Icon} from 'react-native-elements';
 
 class Header extends React.Component {
     constructor(props) {
         super(props);
     }
 
-
-
     renderBackButton() {
        return <Button
             adjustsFontSizeToFit={true}
             icon=
                 {<Icon
-                    name='back'
+                    name="back"
                     size={30}
                     color="#fff"/>}
-            type="clear" />
+            type="clear" />;
     }
 
     render() {
@@ -41,14 +39,14 @@ const style = StyleSheet.create({
         backgroundColor : '#2a8dc6',
         flex: 0.10,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     titleText: {
         paddingLeft: 10,
         fontSize: 20,
         fontFamily: 'Roboto',
         fontWeight: 'bold',
-        color: '#fff'
+        color: '#fff',
     },
     logo: {
         height: '60%',
