@@ -30,10 +30,6 @@ class DetailedView extends React.Component {
         };
     }
 
-    componentDidMount() {
-        this.props.navigation.setParams({header: <Header button={this.createButton()} />});
-    }
-
     setCache() {
         this.props.navigation.setParams(
             {
@@ -80,6 +76,7 @@ class DetailedView extends React.Component {
 
     componentDidMount() {
         this.props.getDetail(this.props.navigation.state.params.id);
+        this.props.navigation.setParams({header:  <Header title="View Squawk" button={this.createButton()} />});
         this.subscribe();
     }
 
@@ -114,9 +111,7 @@ class DetailedView extends React.Component {
         let imgUrl = Config.IMG_BUCKET_URL + this.props.navigation.state.params.id;
         return (
             <>
-                <Header title="View Squawk" button={this.createButton()} />
                 <View style={styles.container}>
-
                     {this.props.loading ? <ActivityIndicator color="#2a8dc6" size="large" /> :
                        <>
                            <Quote quote={this.props.quote} navigation={this.props.navigation}/>

@@ -16,7 +16,7 @@ class NewSquawk extends React.Component {
     };
 
     componentDidMount() {
-        this.props.navigation.setParams({header: <Header button={this.createButton()} />});
+        this.props.navigation.setParams({header:   <Header title={'New Squawk'} button={this.createButton()} />});
     }
 
     constructor(props) {
@@ -139,7 +139,7 @@ class NewSquawk extends React.Component {
     render() {
         return (
             <>
-            <Header title={'New Squawk'} button={this.createButton()} />
+
             <View style={styles.container}>
                 {this.props.posting ? <ActivityIndicator color="#2a8dc6" size="large" /> : null }
                 <View style={styles.replyView}>

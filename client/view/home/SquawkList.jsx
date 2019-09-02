@@ -21,7 +21,6 @@ class SquawkList extends React.Component {
 
     componentDidMount() {
        this.props.getPosts();
-       this.props.navigation.setParams({header: <Header button={this.createButton()} />});
     }
 
     getMore() {
