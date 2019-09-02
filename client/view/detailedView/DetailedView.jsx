@@ -2,7 +2,6 @@ import React from 'react';
 import {Dimensions} from 'react-native';
 import {Button, Icon} from 'react-native-elements';
 import {View, Text, ActivityIndicator, Image} from 'react-native';
-import Header from '../Header';
 import {styles} from '../styles';
 import {connect} from 'react-redux';
 import {getDetail, setDetail} from '../../controller/actions/detail';
@@ -15,7 +14,8 @@ const { width, height } = Dimensions.get('window');
 class DetailedView extends React.Component {
     static navigationOptions = ({navigation}) => {
         return {
-            header: navigation.getParam('header', null),
+            title: 'View Squawk',
+            headerRight: navigation.getParam('button', null),
         };
     };
 
@@ -37,7 +37,7 @@ class DetailedView extends React.Component {
 
     componentDidMount() {
         this.props.getDetail(this.props.navigation.state.params.id);
-        this.props.navigation.setParams({header:  <Header title="View Squawk" button={this.createButton()} />});
+        this.props.navigation.setParams({button:  this.createButton()});
         this.subscribe();
         Dimensions.addEventListener('change', () => {
             this.setState({

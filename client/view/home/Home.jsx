@@ -1,7 +1,6 @@
 import React from 'react';
-import Header from '../Header';
-import {View} from 'react-native';
-import {styles} from '../styles';
+import {Image, View} from 'react-native';
+import {headerStyle, styles} from '../styles';
 import SquawkList from './SquawkList';
 import {Button, Icon} from 'react-native-elements';
 
@@ -9,7 +8,8 @@ class Home extends React.Component {
 
     static navigationOptions = ({navigation}) => {
         return {
-            header: navigation.getParam('header', null),
+            headerTitle: <Image source={require('../img/logo.png')} style={headerStyle.logo} resizeMethod="scale" resizeMode="contain"/>,
+            headerRight: navigation.getParam('button', null)
         };
     };
 
@@ -19,7 +19,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        this.props.navigation.setParams({header: <Header button={this.createButton()} />});
+        this.props.navigation.setParams({button: this.createButton()});
     }
 
     createButton() {

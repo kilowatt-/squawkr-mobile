@@ -1,5 +1,13 @@
 import {StyleSheet} from 'react-native';
 
+export const headerStyle = StyleSheet.create({
+    logo: {
+        height: '60%',
+        position: 'absolute',
+        left: -20,
+    },
+});
+
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -107,7 +115,7 @@ export const styles = StyleSheet.create({
     },
 
     replyListContainer: {
-        flex:0.5,
+        flex:1
     },
 
     replyListHeaderContainer: {

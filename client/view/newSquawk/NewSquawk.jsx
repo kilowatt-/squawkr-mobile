@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from '../Header';
 import {Button, Icon, Input, Text} from 'react-native-elements';
 import {View, ActivityIndicator} from 'react-native';
 import {styles} from '../styles';
@@ -12,12 +11,13 @@ import {StackActions} from 'react-navigation';
 class NewSquawk extends React.Component {
     static navigationOptions = ({navigation}) => {
         return {
-            header: navigation.getParam('header', null),
+            title: 'New Squawk',
+            headerRight: navigation.getParam('button', null)
         };
     };
 
     componentDidMount() {
-        this.props.navigation.setParams({header:   <Header title={'New Squawk'} button={this.createButton()} />});
+        this.props.navigation.setParams({button: this.createButton()});
     }
 
     constructor(props) {
